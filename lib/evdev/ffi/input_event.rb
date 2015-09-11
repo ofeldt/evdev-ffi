@@ -7,6 +7,22 @@ module Evdev
         :code, :uint16,
         :value, :int32
       )
+
+      def time
+        self[:time]
+      end
+
+      def type
+        self[:type]
+      end
+
+      def code
+        self[:code]
+      end
+
+      def value
+        self[:value]
+      end
     end
   end
 end
