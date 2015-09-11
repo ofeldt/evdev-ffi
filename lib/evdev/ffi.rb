@@ -113,7 +113,7 @@ module Evdev
     #attach_function :libevdev_property_from_name_n, [:string, :size_t], :int
 
     # Event handling
-    attach_function :libevdev_next_event,           [EvDev.ptr, ReadFlag, InputEvent.by_ref], :int
+    attach_function :libevdev_next_event,           [EvDev.ptr, ReadFlag, InputEvent.by_ref], :int, blocking: true
     attach_function :libevdev_has_event_pending,    [EvDev.ptr], :int
 
     # uinput device creation
