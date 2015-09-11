@@ -23,9 +23,8 @@ module Evdev
       return_codes = [0, 1, -Errno::EAGAIN::Errno]
       event = Evdev::FFI::InputEvent.new
       while return_codes.include?(code = Evdev::FFI.next_event(@device, @flags, event))
-        if code == 0
-          block.call(event)
-        end
+        block.call(event)
+        event = Evdev::FFI::InputEvent.new
       end
     end
     alias :each_event :handle_events
