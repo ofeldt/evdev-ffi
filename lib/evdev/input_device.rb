@@ -99,7 +99,13 @@ module Evdev
 
     private
     def open_device(path)
-      @descriptor = IO.sysopen(path.to_s, Fcntl::O_RDONLY)# | Fcntl::O_NONBLOCK)
+      begin
+        path = path.to_s
+      rescue TypeError
+        raise CouldNotOpenDeviceError, "Device path needs to be coerable to String"
+      end
+
+      @descriptor = IO.sysopen(path, Fcntl::O_RDONLY)# | Fcntl::O_NONBLOCK)
       @device = Evdev::FFI.new
 
       raise CouldNotOpenDeviceError if Evdev::FFI.set_fd(@device, @descriptor) < 0
